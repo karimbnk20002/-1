@@ -1,0 +1,28 @@
+name: Build Android Web App
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Create Artifact Archive
+        run: |
+          mkdir -p android-build
+          cp index.html android-build/
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: waqtuk-thameen-app
+          path: android-build/index.html
